@@ -15,9 +15,8 @@ spec:
     spec:
       containers:
       - name: secure-app
-        image: nginx:1.25
+        image: nginxinc/nginx-unprivileged:1.25
         securityContext:
-          runAsNonRoot: false
           allowPrivilegeEscalation: false
           capabilities:
             drop:
