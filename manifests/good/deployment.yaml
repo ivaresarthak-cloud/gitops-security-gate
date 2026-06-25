@@ -17,9 +17,7 @@ spec:
       - name: secure-app
         image: nginx:1.25
         securityContext:
-          runAsNonRoot: true
-          runAsUser: 1000
-          readOnlyRootFilesystem: true
+          runAsNonRoot: false
           allowPrivilegeEscalation: false
           capabilities:
             drop:
