@@ -1,0 +1,27 @@
+name: Kubescape Security Scan
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  kubescape-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Kubescape
+        run: |
+          curl -s https://raw.githubusercontent.com/kubescape/kubescape/master/install.sh | /bin/bash
+          echo "$HOME/.kubescape/bin" >> $GITHUB_PATH
+
+      - name: Scan good manifests
+        run: |
+          kubescape scan manifests/good/ --fail-threshold 50
+
+      - name: Scan bad manifests (should fail)
+        run: |
+          kubescape scan manifests/bad/ --fail-threshold 50
