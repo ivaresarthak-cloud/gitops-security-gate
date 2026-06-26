@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: insecure-app
-  namespace: default
 spec:
   replicas: 1
   selector:
@@ -17,6 +16,11 @@ spec:
       - name: insecure-app
         image: nginx:latest
         securityContext:
-          runAsUser: 0
           privileged: true
-          allowPrivilegeEscalation: true
+        volumeMounts:
+        - name: host-root
+          mountPath: /host
+      volumes:
+      - name: host-root
+        hostPath:
+          path: /
