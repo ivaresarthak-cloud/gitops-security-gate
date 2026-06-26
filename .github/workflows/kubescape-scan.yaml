@@ -24,7 +24,7 @@ jobs:
 
       - name: Scan bad manifests (block deployment)
         run: |
-          kubescape scan manifests/bad/ --fail-threshold 1
+          kubescape scan manifests/bad/ --fail-threshold 0
 
       - name: Notify Slack on failure
         if: failure()
